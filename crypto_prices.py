@@ -100,26 +100,39 @@ def all_time_high(coin):
 
 def print_stats(coin):
     current = current_price(coin)
-    if current is None:
-        return f"unable to find any data for {coin}."
-    peak = peak_crypto_era_price(coin)
-    if peak:    
-        diff = abs(peak-current)
-        percentage_diff = (diff/peak)*100
-    ath = all_time_high(coin)
-    if ath and ath[0] > 0:
-        ath_diff = ((ath[0] - current)/ath[0])*100
-    else: return
+    data = {
+        "current": current,
+        "peak": peak_crypto_era_price(coin) if current is not None else None,
+        "peak_diff": None,
+        "ath": None,
+        "ath_diff": None,
+        "ath_date": None,
+        "all_stats": None
+    }
+    if data["current"] is None:
+        data["all_stats"] = f"unable to find any data for {coin}."    
+        return data
 
-    if peak is None:
-       output = (f"{coin} was not around during the peak crypto-rush-era of 2021."
-            f" {coin} is {ath_diff:.01f}% below its all time high of {ath[0]} from {ath[1]}")
+    if data["peak"]:    
+        diff = abs(data["peak"]-data["current"])
+        data["peak_diff"] = (diff/data["peak"])*100
+
+    ath_tuple = all_time_high(coin)
+    if ath_tuple and ath_tuple[0] > 0:        
+        data["ath"] = ath_tuple[0]
+        data["ath_date"] = ath_tuple[1]
+        data["ath_diff"] = ((data["ath"] - data["current"])/data["ath"])*100
+
+    if data["peak"] is None:
+       data["all_stats"] = (f"{coin} was not around during the peak crypto-rush-era of 2021."
+            f" {coin} is currently at ${fp.format_price(data['current'])},"
+            f" which is {data['ath_diff']:.01f}% below its all time high of {data['ath']} from {data['ath_date']}")
     else:
-        output = (f"current price of {coin} is ${fp.format_price(current)}," 
-           f" which is ${fp.format_price(diff)} {'below' if peak>current else 'above'}"
-           f" its peak 2021 crypto-rush-era price of ${fp.format_price(peak)}; "          
-           f"a{' decline' if peak>current else ' gain'} of "
-           f"{percentage_diff:.01f}%."
-           f" {coin} is also {ath_diff:.01f}% below its all time high of {fp.format_price(ath[0])} from {ath[1]}")
-        
-    return output
+        data["all_stats"] = (f"current price of {coin} is ${fp.format_price(data['current'])}," 
+           f" which is ${fp.format_price(diff)} {'below' if data['peak']>data['current'] else 'above'}"
+           f" its peak 2021 crypto-rush-era price of ${fp.format_price(data['peak'])}; "          
+           f"a{' decline' if data['peak']>data['current'] else ' gain'} of "
+           f"{data['peak_diff']:.01f}%."
+           f" {coin} is also {data['ath_diff']:.01f}% below its all time high of {fp.format_price(data['ath'])} from {data['ath_date']}")
+    
+    return data
