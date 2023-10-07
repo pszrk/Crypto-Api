@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
 from crypto_prices import print_stats
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/api/stats", methods=["POST"])
 def crypto_api():
@@ -13,7 +15,7 @@ def crypto_api():
     name = data["name"]
     result = print_stats(name)
 
-    return jsonify({"result": result})
+    return result
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(port=5000)
