@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Cooldown</title>
+</head>
+<body>
+    <label for="search">Search cryptocurrency:</label>
+    <input type="text" id="search" name="search" pattern="[a-z]{1,20}" required>
+    <button onclick="sendRequest()">Submit</button>
+    <div id="stats"></div>
+
+    <script>
+        document.getElementById('search').addEventListener('input', function () {
+            let inputValue = this.value;
+            // regular expression to allow lowercase letters only
+            inputValue = inputValue.replace(/[^a-z]/g, '');
+            // limit input to 20 chars
+            inputValue = inputValue.slice(0, 20);
+            this.value = inputValue;
+        });
+    </script>
+
+    <script>
+        function sendRequest() {
+            const searchquery = document.getElementById('search').value;
+            const url = `http://localhost:5000/api/stats`;
+
+            // asynchronous request
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name: searchquery }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // display response
+                document.getElementById('stats').innerText = data.all_stats
+                console.log(data)
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
