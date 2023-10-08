@@ -46,7 +46,8 @@ def max_price_in_range(coin, start_date, days):
         # response is dictionary, key "prices" contains list of lists as [timestamp, price]
         if prices:
             max_price = max(prices, key=lambda x: x[1])
-            return max_price[1]
+            date = datetime.utcfromtimestamp(max_price[0] / 1000).strftime('%d-%m-%Y')
+            return [max_price[1], date]
     else:
         print(f'Error in getting price range data, code: {response.status_code}')
     return None
@@ -75,7 +76,7 @@ def current_price(coin):
 
 
 def peak_crypto_era_price(coin):    
-    peak = max_price_in_range(coin, "01-03-2021", 35)
+    peak = max_price_in_range(coin, "01-01-2021", 360)
     return peak
     
 
@@ -100,10 +101,13 @@ def all_time_high(coin):
 
 def print_stats(coin):
     current = current_price(coin)
+    peak = peak_crypto_era_price(coin) if current else None
     data = {
+        "name": coin,
         "current": current,
-        "peak": peak_crypto_era_price(coin) if current is not None else None,
-        "peak_diff": None,
+        "peak_date": peak_crypto_era_price(coin)[1] if peak is not None else None,
+        "peak_price": peak_crypto_era_price(coin)[0] if peak is not None else None,
+        "peak_21": False,
         "ath": None,
         "ath_diff": None,
         "ath_date": None,
@@ -111,11 +115,7 @@ def print_stats(coin):
     }
     if data["current"] is None:
         data["all_stats"] = f"unable to find any data for {coin}."    
-        return data
-
-    if data["peak"]:    
-        diff = abs(data["peak"]-data["current"])
-        data["peak_diff"] = (diff/data["peak"])*100
+        return data    
 
     ath_tuple = all_time_high(coin)
     if ath_tuple and ath_tuple[0] > 0:        
@@ -123,16 +123,16 @@ def print_stats(coin):
         data["ath_date"] = ath_tuple[1]
         data["ath_diff"] = ((data["ath"] - data["current"])/data["ath"])*100
 
-    if data["peak"] is None:
-       data["all_stats"] = (f"{coin} was not around during the peak crypto-rush-era of 2021."
+    if data["peak_date"]:  
+        data["peak_21"] = True if data["peak_date"][-4:] == "2021" else False
+
+    if data["peak_price"] is None:
+       data["all_stats"] = (f"{coin} was not around during the peak crypto inflation period of 2021."
             f" {coin} is currently at ${fp.format_price(data['current'])},"
             f" which is {data['ath_diff']:.01f}% below its all time high of {data['ath']} from {data['ath_date']}")
     else:
-        data["all_stats"] = (f"current price of {coin} is ${fp.format_price(data['current'])}," 
-           f" which is ${fp.format_price(diff)} {'below' if data['peak']>data['current'] else 'above'}"
-           f" its peak 2021 crypto-rush-era price of ${fp.format_price(data['peak'])}; "          
-           f"a{' decline' if data['peak']>data['current'] else ' gain'} of "
-           f"{data['peak_diff']:.01f}%."
-           f" {coin} is also {data['ath_diff']:.01f}% below its all time high of {fp.format_price(data['ath'])} from {data['ath_date']}")
+        data["all_stats"] = (f"current price of {coin} is ${fp.format_price(data['current'])}." 
+           f" {coin} {'reached' if data['peak_21'] else 'did not reach'} its peak price in the crypto inflationary period of 2021."
+           f" {coin} is {data['ath_diff']:.01f}% below its all time high of {fp.format_price(data['ath'])} from {data['ath_date']}")
     
     return data
