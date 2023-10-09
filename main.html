@@ -12,6 +12,12 @@
             <label for="search">Search cryptocurrency:</label>
             <input type="text" class="inputbox" id="search" name="search" pattern="[a-z]{1,20}" required>
             <button class="search-button" onclick="sendRequest()">Submit</button>
+            <div class="popup" id="popup">
+                <div class="popup-content" id="popupContent">
+                    <p id="popupMessage"></p>
+                    <button onclick="closePopup()">Close</button>
+                </div>
+            </div>
         </div>
         <div class="grid-item">
             <div id = "price"></div>
@@ -57,11 +63,23 @@
                 },
                 body: JSON.stringify({ name: searchquery }),
             })
-            .then(response => response.json())
+            .then(response => 
+            {
+                if(response.status == 400)
+                    openPopup("bad request...")
+                else
+                    return response.json()
+            })
             .then(data => {
                 // display response
-                if(!data || !data.name || !data.price)
+                if(!data || !data.name)
                     return;
+
+                if(!data.price){
+                    document.getElementById('price').innerText =
+                    `unable to find any data for ${data.name}`
+                    return;
+                }                    
 
                 console.log(data)
 
@@ -95,6 +113,14 @@
             if (price >= 1)
                 return price.toFixed(2)
             return price.toPrecision(4)
+        }
+        function openPopup(message) {
+            document.getElementById('popupMessage').innerText = message;
+            document.getElementById('popup').style.display = 'inherit';
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
         }
     </script>
 </body>
