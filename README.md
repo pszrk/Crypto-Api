@@ -32,17 +32,18 @@ example:
 Response format:  
 the API response is a JSON object containing the calculated statistics  
 example response:  
-{  
-'name': 'bitcoin',   
-'current': 27926.159635951317,   
-'peak_date': '09-11-2021',   
-'peak_price': 67617.0155448617,   
-'peak_21': True,   
+{'name': 'bitcoin',   
+'price': 27948.0,   
 'ath': 67617.0,   
-'ath_diff': 58.69949918518817,   
-'ath_date': '11-11-2021',   
-'all_stats': 'current price of bitcoin is $27926.16. bitcoin reached its peak price in the crypto inflationary period of 2021. bitcoin is 58.7% below its all time high of 67617.00 from 11-11-2021'  
-}  
+'ath_date': '11-11-2021',  
+'low_after_ath': 15742.44,   
+'low_after_ath_date': '11-11-2022',   
+'decline_from_ath': 58.66719907715515,   
+'ath_was_in_2021': True,   
+'gain_to_ath': 141.93860025762132,   
+'tracked_from': '30-04-2013',   
+'around_in_21': True  
+}
   
 How to use:  
 to use the API, send a POST request to the '/api/stats' endpoint with a JSON object containing the 'name' parameter  
