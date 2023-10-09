@@ -32,7 +32,8 @@ example:
 Response format:  
 the API response is a JSON object containing the calculated statistics  
 example response:  
-{'name': 'bitcoin',   
+{  
+'name': 'bitcoin',   
 'price': 27948.0,   
 'ath': 67617.0,   
 'ath_date': '11-11-2021',  
@@ -50,5 +51,7 @@ to use the API, send a POST request to the '/api/stats' endpoint with a JSON obj
 example using cURL:  
 curl -X POST -H "Content-Type: application/json" -d '{"name": "bitcoin"}' http://localhost:5000/api/stats  
 review the response from the API to get statistics for that cryptocurrency.  
+alternatively use the webpage in main.html to interact with the API.
 
-TODO: add database to cache results of api requests
+TODO: add database to cache results of api requests  
+implement automated testing
