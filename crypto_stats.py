@@ -1,5 +1,4 @@
 import external_api as api
-import format_price as fp
 from datetime import datetime
 
 
