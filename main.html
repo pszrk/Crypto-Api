@@ -11,7 +11,7 @@
         <div class="grid-item1">
             <label for="search">Search cryptocurrency:</label>
             <input type="text" class="inputbox" id="search" name="search" pattern="[a-z]{1,20}" required>
-            <button class="search-button" onclick="closePopup(); sendRequest()">Submit</button>
+            <button class="search-button" onclick="clearContents(); closePopup(); sendRequest()">Submit</button>
             <div class="popup" id="popup">
                 <div class="popup-content" id="popupContent">
                     <p id="popupMessage"></p>
@@ -38,6 +38,9 @@
             <div id="stats"></div>
         </div>
     </div>
+
+    <button id="apibtn" onclick="displayAPI()">Show api output</button>
+    <div class="api-output" id="api-output"></div>
 
     <script>
         document.getElementById('search').addEventListener('input', function () {
@@ -83,6 +86,9 @@
 
                 console.log(data)
 
+                document.getElementById('apibtn').style.display = 'flex';
+                document.getElementById('api-output').style.display = 'none';
+
                 document.getElementById('price').innerText = 
                     `${data.name}: $ ${fmt(data.price)}`
                 document.getElementById('ath_stats').innerText = 
@@ -103,6 +109,9 @@
                         `after making its ATH, 
                         ${data.name} declined to a low of ${data.low_after_ath} on ${data.low_after_ath_date}, 
                         a decline of ${Math.round(data.decline_from_ath)}%.`
+
+                document.getElementById('api-output').innerText = `direct API output:\n
+                        ${JSON.stringify(data, null, 2)}`
             })
             .catch(error => console.error('Error:', error));
         }
@@ -121,6 +130,21 @@
 
         function closePopup() {
             document.getElementById('popup').style.display = 'none';
+        }
+
+        function displayAPI() {
+            document.getElementById('apibtn').style.display = 'none';
+            document.getElementById('api-output').style.display = 'flex';
+        }
+
+        function clearContents() {
+            const gridItems = document.querySelectorAll('.grid-item');
+            if(gridItems.length > 0){
+                gridItems.forEach(gridItem => {
+                    const divs = gridItem.querySelectorAll('div');
+                    divs.forEach(div => div.innerText='') })
+            } 
+            document.getElementById('api-output').innerText = '';          
         }
     </script>
 </body>
