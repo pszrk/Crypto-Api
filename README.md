@@ -48,4 +48,6 @@ How to use:
 to use the API, send a POST request to the '/api/stats' endpoint with a JSON object containing the 'name' parameter  
 example using cURL:  
 curl -X POST -H "Content-Type: application/json" -d '{"name": "bitcoin"}' http://localhost:5000/api/stats  
-review the response from the API to get statistics for that cryptocurrency.
+review the response from the API to get statistics for that cryptocurrency.  
+
+TODO: add database to cache results of api requests
