@@ -114,4 +114,4 @@ def calculate_stats(coin):
 
 
 if __name__ == "__main__":
-    calculate_stats("dogecoin")
+    print(calculate_stats("bitcoin"))
