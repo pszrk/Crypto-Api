@@ -19,4 +19,16 @@ def test_get_stats():
     assert 'gain_to_ath' in data
     assert 'tracked_from' in data
 
+    assert data['name'] is not None
+    assert data['price'] is not None
+    assert data['ath'] is not None
+    assert data['ath_date'] is not None
+    assert data['around_in_21'] is not None
+    assert data['low_after_ath'] is not None
+    assert data['low_after_ath_date'] is not None
+    assert data['decline_from_ath'] is not None
+    assert data['ath_was_in_2021'] is not None
+    assert data['gain_to_ath'] is not None
+    assert data['tracked_from'] is not None
+
     assert data['price'] > 0
