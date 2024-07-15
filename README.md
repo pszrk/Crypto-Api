@@ -1,4 +1,5 @@
 Crypto Api
+
 analyze real-time performance statistics of cryptocurrencies
 
 this project is a python api which calculates some statistics on the user requested cryptocurrency.  
