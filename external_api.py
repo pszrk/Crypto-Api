@@ -2,11 +2,12 @@ import requests
 
 def get_ohlc(coin):
     url = f"https://api.coingecko.com/api/v3/coins/{coin}/ohlc"
-    headers = {"accept": "application/json"}
+    headers = {"accept": "application/json",
+               "x-cg-demo-api-key": "CG-V7svdvGGPNrMudeqx6c8jkPr"}
 
     params = {
         'vs_currency': 'usd',
-        'days': 'max'
+        'days': '365'
     }
 
     response = requests.get(url, params=params, headers = headers)
