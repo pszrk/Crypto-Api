@@ -1,4 +1,5 @@
 import external_api as api
+import format_price as fp
 from datetime import datetime
 
 
@@ -11,17 +12,14 @@ def get_data(coin):
 def latest_price(data):
     if data is None: 
         return
-    current = data[-1][4]
-    print(current)
-    return current
+    current_price = data[-1][4]    
+    return current_price
 
 
 def ath(data):
     if data is None: 
         return
     max_price = max(data, key=lambda x: x[2])
-    date = datetime.utcfromtimestamp(max_price[0] / 1000).strftime('%d-%m-%Y')
-    print( f"ATH {[max_price[2]]} {date}")
     return [max_price[2], max_price[0]] # returns price, timestamp
 
 
@@ -31,41 +29,39 @@ def min_after_ath(data, ath_timestamp):
                  if timestamp > ath_timestamp]
     if after_ath:
         min_price = min(after_ath, key=lambda x: x[1])
-        date = datetime.utcfromtimestamp(min_price[0] / 1000).strftime('%d-%m-%Y')
-        print( f"min after ATH {[min_price[1]]} {date}")
+        #date = datetime.utcfromtimestamp(min_price[0] / 1000).strftime('%d-%m-%Y')
+        #print( f"min after ATH {[min_price[1]]} {date}")
         return [min_price[1], min_price[0]] # returns price, timestamp
 
 
 def peak_21(ath_timestamp):
     # convert to seconds
     value = True if datetime.utcfromtimestamp(ath_timestamp/1000).year == 2021 else False
-    print(f"crypto era ath: {value}")
     return value
 
 
 def decline_from_ath(current, ath):
     amount = ath - current
     percentage = (amount/ath)*100
-    print(f"decline from ath is {amount} or {percentage} %")
     return percentage
 
 
 def gain_to_ath(current, ath):
     amount = ath - current
     percentage = (amount / current) *100
-    print(f"would have to gain {percentage} % to reach ath")
+    #print(f"would have to gain {percentage} % to reach ath")
     return percentage
 
 
 def tracked_since(data):
     first_timestamp = datetime.utcfromtimestamp(data[0][0] / 1000).strftime('%d-%m-%Y')
-    print(f"tracked since {first_timestamp}")
+    #print(f"tracked since {first_timestamp}")
     return first_timestamp
 
 
 def tracked_in_21(data):
     result = datetime.utcfromtimestamp(data[0][0]/1000).year <= 2021
-    print(f"tracked in 2021?: {result}")
+    #print(f"tracked in 2021?: {result}")
     return result
 
 
@@ -93,11 +89,9 @@ def calculate_stats(coin):
     price = latest_price(data)
     ath_data = ath(data)
     min_after_ath_data = min_after_ath(data, ath_data[1])
-    ath_21 = peak_21(ath_data[1])
     ath_selloff = decline_from_ath(price, ath_data[0])
     to_ath = gain_to_ath(price, ath_data[0])
     tracked_from = tracked_since(data)
-    tracked_21 = tracked_in_21(data)
     return{
         "name": coin,
         "price": price,
@@ -105,11 +99,9 @@ def calculate_stats(coin):
         "ath_date": datetime.utcfromtimestamp(ath_data[1] / 1000).strftime('%d-%m-%Y'),
         "low_after_ath": min_after_ath_data[0],
         "low_after_ath_date": datetime.utcfromtimestamp(min_after_ath_data[1] / 1000).strftime('%d-%m-%Y'),
-        "decline_from_ath": ath_selloff,
-        "ath_was_in_2021": ath_21,
-        "gain_to_ath": to_ath,
-        "tracked_from": tracked_from,
-        "around_in_21": tracked_21
+        "percent_decline_from_ath": ath_selloff,
+        "percent_gain_to_reach_ath": to_ath,
+        "tracked_from": tracked_from
     }
 
 
