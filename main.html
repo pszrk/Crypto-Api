@@ -26,17 +26,15 @@
             <div id = "ath_stats"></div>
         </div>
         <div class="grid-item">
-            <div id = "peak_stats"></div>
-        </div>
-        <div class="grid-item">
             <div id = "ath_price"></div>
-        </div>
-        <div class="grid-item">
-            <div id = "ath_calc"></div>
         </div>
         <div class="grid-item">
             <div id="stats"></div>
         </div>
+        <div class="grid-item">
+            <div id = "ath_calc"></div>
+        </div>
+        
     </div>
 
     <button id="apibtn" onclick="displayAPI()">Show api output</button>
@@ -90,25 +88,17 @@
                 document.getElementById('api-output').style.display = 'none';
 
                 document.getElementById('price').innerText = 
-                    `${data.name}: $ ${fmt(data.price)}`
+                    `${data.name} price today: $ ${data.price}`
                 document.getElementById('ath_stats').innerText = 
-                    `down ${fmt(data.decline_from_ath)}% from ATH`
-                document.getElementById('peak_stats').innerText = 
-                    `${data.name} ${data.ath_was_in_2021 ? 'reached' : 'did not reach'} its peak price 
-                    during the crypto inflationary era of 2021.`
-                if(!data.around_in_21){
-                    document.getElementById('peak_stats').innerText = 
-                        `${data.name} was not around during the crypto inflationary era of 2021.`
-                }
+                    `the price of ${data.name} is currently ${data.percent_decline_from_ath.toFixed(2)}% below its ATH`
                 document.getElementById('ath_price').innerText = 
-                        `ATH was $ ${fmt(data.ath)} on ${data.ath_date}`
+                        `ATH of ${data.name} was $ ${data.ath} on ${data.ath_date}`
                 document.getElementById('ath_calc').innerText = 
-                        `${data.name} would have to rise ${Math.round(data.gain_to_ath)}% 
-                            to reach ATH again`                
+                        `${data.name} would have to rise ${Math.round(data.percent_gain_to_reach_ath)}% from today's price
+                            to reach its ATH again`                
                 document.getElementById('stats').innerText = 
-                        `after making its ATH, 
-                        ${data.name} declined to a low of ${data.low_after_ath} on ${data.low_after_ath_date}, 
-                        a decline of ${Math.round(data.decline_from_ath)}%.`
+                        `after making its ATH of ${data.ath} on ${data.ath_date},
+                        ${data.name} declined to a low of ${data.low_after_ath} on ${data.low_after_ath_date}.`
 
                 document.getElementById('api-output').innerText = `direct API output:\n
                         ${JSON.stringify(data, null, 2)}`
@@ -116,13 +106,13 @@
             .catch(error => console.error('Error:', error));
         }
 
-        function fmt(price){
+        /*function fmt(price){
             if(!price)
                 return
             if (price >= 1)
                 return price.toFixed(2)
             return price.toPrecision(4)
-        }
+        }*/
         function openPopup(message) {
             document.getElementById('popupMessage').innerText = message;
             document.getElementById('popup').style.display = 'inherit';
