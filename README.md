@@ -27,23 +27,21 @@ The request must be a JSON object with the following parameter:
 'name' (string): the name of cryptocurrency   
 example:  
 {  
-  "name": "bitcoin"  
+  "name": "ethereum"  
 }  
 Response format:  
 the API response is a JSON object containing the calculated statistics  
 example response:  
-{  
-'name': 'bitcoin',   
-'price': 27948.0,   
-'ath': 67617.0,   
-'ath_date': '11-11-2021',  
-'low_after_ath': 15742.44,   
-'low_after_ath_date': '11-11-2022',   
-'decline_from_ath': 58.66719907715515,   
-'ath_was_in_2021': True,   
-'gain_to_ath': 141.93860025762132,   
-'tracked_from': '30-04-2013',   
-'around_in_21': True  
+{
+    "ath": 4085.78,
+    "ath_date": "14-03-2024",
+    "low_after_ath": 2826.93,
+    "low_after_ath_date": "05-05-2024",
+    "name": "ethereum",
+    "percent_decline_from_ath": 14.617527130682518,
+    "percent_gain_to_reach_ath": 17.12005595464006,
+    "price": 3488.54,
+    "tracked_from": "18-07-2023"
 }
   
 How to use:  
