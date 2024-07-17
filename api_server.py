@@ -3,7 +3,7 @@ from crypto_stats import calculate_stats
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/api/stats": {"origins": "*", "methods": ["POST"]}})
 
 @app.route("/api/stats", methods=["POST"])
 def crypto_api():
