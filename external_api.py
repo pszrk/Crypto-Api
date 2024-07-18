@@ -22,5 +22,5 @@ def get_ohlc(coin):
         return None
     return data
 
-if __name__ == "__main__":
-    get_ohlc("bitcoin")
+#if __name__ == "__main__":
+ #   get_ohlc("bitcoin")
