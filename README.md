@@ -7,17 +7,15 @@ it accepts input in json format with a field for the name of a cryptocurrency.
 it makes external api calls to fetch real-time price data, as well as a range of historical prices.  
 the python backend then computes some statistics.  
 the api then returns these statistics in a json format.  
-currently, usage is to clone the repository, run api_server.py, and make json queries on localhost:5000. you can then view the api output using postman or an api testing package of your choice.  
+currently, usage is to make POST requests on https://testaccount0.pythonanywhere.com/api/stats. 
+you can view the api output using postman or an api testing package of your choice.  
 aditionally, there is a webpage created for interacting with the api in a more user friendly format. Webpage is written using plain html/css/javascript.  
 
 
 Installation:  
   
-Clone repository  
-Install dependencies (pip install -r requirements.txt)  
-Start the api server (python api_server.py)  
-The api will be accessible at http://localhost:5000  
-If you want to interact with the API through the webpage instead, open main.html after starting the API server.  
+The api is accessible at https://testaccount0.pythonanywhere.com/api/stats.
+There is also a demo webpage through which you can interact with the API.
 
 API documentation:
 
@@ -47,9 +45,10 @@ example response:
 How to use:  
 to use the API, send a POST request to the '/api/stats' endpoint with a JSON object containing the 'name' parameter  
 example using cURL:  
-curl -X POST -H "Content-Type: application/json" -d '{"name": "bitcoin"}' http://localhost:5000/api/stats  
-review the response from the API to get statistics for that cryptocurrency.  
-alternatively use the webpage in main.html to interact with the API.
+curl -X POST -H "Content-Type: application/json" -d '{"name": "bitcoin"}' https://testaccount0.pythonanywhere.com/api/stats 
+review the response from the API to get statistics for that cryptocurrency.
+
+alternatively: use the webpage titled main.html to interact with the API.
 
 TODO: add database to cache results of api requests  
 implement automated testing
