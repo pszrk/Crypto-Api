@@ -15,7 +15,9 @@ aditionally, there is a webpage created for interacting with the api in a more u
 Installation:  
   
 The api is accessible at https://testaccount0.pythonanywhere.com/api/stats.
-There is also a demo webpage through which you can interact with the API.
+
+There is also a demo webpage through which you can interact with the API, available at: https://testaccount0.pythonanywhere.com/demo
+
 
 API documentation:
 
