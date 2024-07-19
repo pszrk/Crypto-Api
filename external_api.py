@@ -29,6 +29,12 @@ def get_price(coin):
                "x-cg-demo-api-key": os.getenv('CG_API_KEY')}
     
     response = requests.get(url, headers = headers)
+    if response.status_code == 200:
+        data = response.json()
+        if coin in data and 'usd' in data[coin]:
+            price = data[coin]['usd']
+            return price
+    return None
 
 #if __name__ == "__main__":
  #   get_ohlc("bitcoin")
