@@ -24,8 +24,11 @@ def get_ohlc(coin):
     return data
 
 def get_price(coin):
-    url =f"https://api.coingecko.com/api/v3/simple/price"
+    url =f"https://api.coingecko.com/api/v3/simple/price?ids={coin}&vs_currencies=usd"
     headers = {"accept": "application/json",
-               "x-cg-demo-api-key": "CG-V7svdvGGPNrMudeqx6c8jkPr"}
+               "x-cg-demo-api-key": os.getenv('CG_API_KEY')}
+    
+    response = requests.get(url, headers = headers)
+
 #if __name__ == "__main__":
  #   get_ohlc("bitcoin")
