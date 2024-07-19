@@ -9,10 +9,14 @@ def get_data(coin):
     # response is list of lists with format: [timestamp, o, h, l, c]
 
 
-def latest_price(data):
+def latest_price(coin, data):
+    price = api.get_price(coin)  #  fetch price as a direct api call 
+    if price:
+        return price
+    
     if data is None: 
         return
-    current_price = data[-1][4]    
+    current_price = data[-1][4]  ##  fetch price from data as a backup
     return current_price
 
 
@@ -86,7 +90,7 @@ def calculate_stats(coin):
     data = get_data(coin)
     if not data: 
         return null(coin)
-    price = latest_price(data)
+    price = latest_price(coin, data)
     ath_data = ath(data)
     min_after_ath_data = min_after_ath(data, ath_data[1])
     ath_selloff = decline_from_ath(price, ath_data[0])
