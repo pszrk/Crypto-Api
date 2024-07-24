@@ -18,7 +18,7 @@ HTML/JavaScript/CSS: frontend webpage to interact with the API
 <b>Usage:</b>  
 The api endpoint is accessible at https://testaccount0.pythonanywhere.com/api/stats.
 
-There is a demo webpage through which you can interact with the API, at: https://testaccount0.pythonanywhere.com/demo
+There is a demo webpage through which you can interact with the API, at: https://testaccount0.pythonanywhere.com
   
   
 <b>API documentation:</b>  
@@ -53,7 +53,7 @@ Usage example using cURL:
 ```
 curl -X POST -H "Content-Type: application/json" -d "{\"name\": \"bitcoin\"}" https://testaccount0.pythonanywhere.com/api/stats
 ```
-alternatively: use the webpage titled main.html to interact with the API.
+
 
 TODO:   
 add database to cache results of api requests  
