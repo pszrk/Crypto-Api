@@ -79,8 +79,14 @@
                     return;
 
                 if(!data.price){
-                    document.getElementById('price').innerText =
-                    `unable to find any data for ${data.name}`
+                    document.getElementById('price').innerText = '';
+                    document.getElementById('ath_price').innerText = '';
+                    document.getElementById('ath_calc').innerText = '';
+                    document.getElementById('stats').innerText = '';
+                    document.getElementById('ath_stats').innerText =
+                        `unable to find any data for ${data.name}
+                        make sure you type the full name of the cryptocurrency (ie "bitcoin" not "btc")
+                        or try again later`;
                     return;
                 }                    
 
