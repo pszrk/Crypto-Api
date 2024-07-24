@@ -24,7 +24,7 @@ def ath(data):
     if data is None: 
         return
     max_price = max(data, key=lambda x: x[2])
-    return [max_price[2], max_price[0]] # returns price, timestamp
+    return [max_price[2], max_price[0]] # returns price[0], timestamp[1]
 
 
 def min_after_ath(data, ath_timestamp):
@@ -52,21 +52,14 @@ def decline_from_ath(current, ath):
 
 def gain_to_ath(current, ath):
     amount = ath - current
-    percentage = (amount / current) *100
-    #print(f"would have to gain {percentage} % to reach ath")
-    return percentage
+    print(amount)
+    return amount
 
 
 def tracked_since(data):
     first_timestamp = datetime.utcfromtimestamp(data[0][0] / 1000).strftime('%d-%m-%Y')
     #print(f"tracked since {first_timestamp}")
     return first_timestamp
-
-
-def tracked_in_21(data):
-    result = datetime.utcfromtimestamp(data[0][0]/1000).year <= 2021
-    #print(f"tracked in 2021?: {result}")
-    return result
 
 
 def null(coin):
@@ -77,11 +70,9 @@ def null(coin):
         "ath_date": None,
         "low_after_ath": None,
         "low_after_ath_date": None,
-        "decline_from_ath": None,
-        "ath_was_in_2021": None,
-        "gain_to_ath": None,
-        "tracked_from": None,
-        "around_in_21": None,
+        "percent_decline_from_ath": None,
+        "amount_gain_to_reach_ath": None,
+        "tracked_from": None
     }
 
 
@@ -100,11 +91,11 @@ def calculate_stats(coin):
         "name": coin,
         "price": price,
         "ath": ath_data[0],
-        "ath_date": datetime.utcfromtimestamp(ath_data[1] / 1000).strftime('%d-%m-%Y'),
+        "ath_date": datetime.fromtimestamp(ath_data[1] / 1000).strftime('%d-%m-%Y'),
         "low_after_ath": min_after_ath_data[0],
-        "low_after_ath_date": datetime.utcfromtimestamp(min_after_ath_data[1] / 1000).strftime('%d-%m-%Y'),
+        "low_after_ath_date": datetime.fromtimestamp(min_after_ath_data[1] / 1000).strftime('%d-%m-%Y'),
         "percent_decline_from_ath": ath_selloff,
-        "percent_gain_to_reach_ath": to_ath,
+        "amount_gain_to_reach_ath": to_ath,
         "tracked_from": tracked_from
     }
 
