@@ -1,56 +1,60 @@
-Crypto Api
+View a summary of some statistics on a cryptocurrency of your choice
 
-analyze real-time performance statistics of cryptocurrencies
+This project is a python RESTful api which calculates some statistics on a cryptocurrency which the user specifies.  
+It accepts input in json format with a field for the name of a cryptocurrency.  
+The Python backend makes external api calls to get real-time and historical prices.
+The Python backend then computes some statistics, 
+then returns these statistics via the API in a json format.  
+The API accepts POST requests on the endpoint /api/stats.
+You can view the api output using postman or an api testing package of your choice.  
+Aditionally, there is a webpage created for interacting with the api.
 
-this project is a python api which calculates some statistics on the user requested cryptocurrency.  
-it accepts input in json format with a field for the name of a cryptocurrency.  
-it makes external api calls to fetch real-time price data, as well as a range of historical prices.  
-the python backend then computes some statistics.  
-the api then returns these statistics in a json format.  
-currently, usage is to make POST requests on https://testaccount0.pythonanywhere.com/api/stats. 
-you can view the api output using postman or an api testing package of your choice.  
-aditionally, there is a webpage created for interacting with the api in a more user friendly format. Webpage is written using plain html/css/javascript.  
+<b>Technologies:</b>   
+Python - backend development  
+Flask - Web framework for building the API endpoints  
+HTML/JavaScript/CSS: frontend webpage to interact with the API
 
 
-Installation:  
+<b>Usage:</b>  
+The api endpoint is accessible at https://testaccount0.pythonanywhere.com/api/stats.
+
+There is a demo webpage through which you can interact with the API, at: https://testaccount0.pythonanywhere.com/demo
   
-The api is accessible at https://testaccount0.pythonanywhere.com/api/stats.
-
-There is also a demo webpage through which you can interact with the API, available at: https://testaccount0.pythonanywhere.com/demo
-
-
-API documentation:
-
-Endpoint '/api/stats'  
+  
+<b>API documentation:</b>  
+Endpoint /api/stats  
 This endpoint accepts HTTP POST requests and returns statistics for the specified cryptocurrency.  
 The request must be a JSON object with the following parameter:  
 'name' (string): the name of cryptocurrency   
 example:  
+```
 {  
   "name": "ethereum"  
 }  
+```
 Response format:  
-the API response is a JSON object containing the calculated statistics  
+the API response is a JSON object containing some information about that cryptocurrency  
 example response:  
+```
 {
-    "ath": 4085.78,
-    "ath_date": "14-03-2024",
-    "low_after_ath": 2826.93,
-    "low_after_ath_date": "05-05-2024",
-    "name": "ethereum",
-    "percent_decline_from_ath": 14.617527130682518,
-    "percent_gain_to_reach_ath": 17.12005595464006,
-    "price": 3488.54,
-    "tracked_from": "18-07-2023"
+    "amount_gain_to_reach_ath": 8376,
+    "ath": 73738,
+    "ath_date": "17-03-2024",
+    "low_after_ath": 53898,
+    "low_after_ath_date": "07-07-2024",
+    "name": "bitcoin",
+    "percent_decline_from_ath": 11.359136401855217,
+    "price": 65362,
+    "tracked_from": "26-07-2023"
 }
-  
-How to use:  
-to use the API, send a POST request to the '/api/stats' endpoint with a JSON object containing the 'name' parameter  
-example using cURL:  
-curl -X POST -H "Content-Type: application/json" -d '{"name": "bitcoin"}' https://testaccount0.pythonanywhere.com/api/stats 
-review the response from the API to get statistics for that cryptocurrency.
+```
 
+Usage example using cURL:  
+```
+curl -X POST -H "Content-Type: application/json" -d "{\"name\": \"bitcoin\"}" https://testaccount0.pythonanywhere.com/api/stats
+```
 alternatively: use the webpage titled main.html to interact with the API.
 
-TODO: add database to cache results of api requests  
+TODO:   
+add database to cache results of api requests  
 implement automated testing
