@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from crypto_stats import calculate_stats
 from flask_cors import CORS
 
@@ -17,5 +17,9 @@ def crypto_api():
 
     return result
 
-#if __name__ == "__main__":
- #   app.run(port=5000)
+@app.route("/")
+def index():
+    return render_template('main.html')
+
+if __name__ == "__main__":
+   app.run(port=5000)
