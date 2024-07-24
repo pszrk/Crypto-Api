@@ -94,11 +94,11 @@
                 document.getElementById('ath_stats').innerText = 
                     `${data.percent_decline_from_ath.toFixed(2)}% below its ATH`
                 document.getElementById('ath_price').innerText = 
-                        `all time high =  ${data.ath} on ${data.ath_date}`
+                        `All time high =  ${data.ath} on ${data.ath_date}`
                 document.getElementById('ath_calc').innerText = 
-                        `${data.name} must gain ${Math.round(data.percent_gain_to_reach_ath)}% to reach ATH`                
+                        `The price of ${data.name} must increase by ${Math.round(data.amount_gain_to_reach_ath)} USD to reach its ATH`                
                 document.getElementById('stats').innerText = 
-                        `after ATH, ${data.name} fell to ${data.low_after_ath} on ${data.low_after_ath_date}.`
+                        `After ATH, ${data.name} fell to ${data.low_after_ath} on ${data.low_after_ath_date}`
 
                 document.getElementById('api-output').innerText = `API response:\n
                         ${JSON.stringify(data, null, 2)}`
