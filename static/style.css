@@ -1,37 +1,34 @@
 body{
-    background-color: #333333;
+    background-color: #000000;
     font-family: sans-serif;
-    color:azure;
+    color:rgb(255, 255, 255);
 }
 
-
-.grid-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;    
-    background-color: #333333;
+.price-item{
+  height: 60px;
 }
 
-.grid-item{
-  height: 100px;
-  text-align: center;
-  background-color: #333333;
-  justify-self: center;
-  display: flex;
-  align-items: center;
+.stats-item{
+  padding-top: 10px;
 }
 
-.grid-item1{
-    grid-column: span 3;
-}
 
 .search-button {
     background-color: #4CAF50; 
     color: white; 
     border: none; 
-    padding: 10px 20px; 
+    padding-right: 10px; 
+    padding-left: 10px; 
+    padding-bottom: 5px;
     border-radius: 5px; 
     cursor: pointer; 
+    font-size: 20px;
+    margin-left: 20px;
   }
+
+.search-container{
+  padding-bottom: 30px;
+}
   
   
   .search-button:hover {
@@ -67,6 +64,11 @@ body{
     text-align: center;
 }
 
+#price{
+  font-style: bold;
+  font-size: 50px;
+}
+
 .api-output {
   display: none;
   padding-top: 5%;
@@ -74,5 +76,11 @@ body{
 }
 
 #apibtn {
-  display: none;
+  background-color: rgb(57, 84, 235);
+  border: #000000;
+  color: white;
+  border-radius: 10%;
+  margin-top: 30px;
+  padding: 5px;
+  font-size: 10px;
 }
