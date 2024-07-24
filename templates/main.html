@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Crypto Information</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Cryptocurrency API demo</title>
 </head>
 <body>
-    <div class ="grid-container">
-        <div class="grid-item1">
-            <label for="search">Search cryptocurrency:</label>
+    <div class ="search-container">
+        <div class="form">
+            <label for="search">Cryptocurrency Name:</label>
             <input type="text" class="inputbox" id="search" name="search" pattern="[a-z]{1,20}" required>
             <button class="search-button" onclick="clearContents(); closePopup(); sendRequest()">Submit</button>
             <div class="popup" id="popup">
@@ -19,22 +19,24 @@
                 </div>
             </div>
         </div>
-        <div class="grid-item">
+    </div>
+
+    <div class="data grid">
+        <div class="price-item">
             <div id = "price"></div>
         </div>        
-        <div class="grid-item">
+        <div class="stats-item">
             <div id = "ath_stats"></div>
         </div>
-        <div class="grid-item">
+        <div class="stats-item">
             <div id = "ath_price"></div>
         </div>
-        <div class="grid-item">
+        <div class="stats-item">
             <div id="stats"></div>
         </div>
-        <div class="grid-item">
+        <div class="stats-item">
             <div id = "ath_calc"></div>
         </div>
-        
     </div>
 
     <button id="apibtn" onclick="displayAPI()">Show api output</button>
@@ -88,19 +90,17 @@
                 document.getElementById('api-output').style.display = 'none';
 
                 document.getElementById('price').innerText = 
-                    `${data.name} price today: $ ${data.price}`
+                    `${data.name}/USD: $ ${data.price}`
                 document.getElementById('ath_stats').innerText = 
-                    `the price of ${data.name} is currently ${data.percent_decline_from_ath.toFixed(2)}% below its ATH`
+                    `${data.percent_decline_from_ath.toFixed(2)}% below its ATH`
                 document.getElementById('ath_price').innerText = 
-                        `ATH of ${data.name} was $ ${data.ath} on ${data.ath_date}`
+                        `all time high =  ${data.ath} on ${data.ath_date}`
                 document.getElementById('ath_calc').innerText = 
-                        `${data.name} would have to rise ${Math.round(data.percent_gain_to_reach_ath)}% from today's price
-                            to reach its ATH again`                
+                        `${data.name} must gain ${Math.round(data.percent_gain_to_reach_ath)}% to reach ATH`                
                 document.getElementById('stats').innerText = 
-                        `after making its ATH of ${data.ath} on ${data.ath_date},
-                        ${data.name} declined to a low of ${data.low_after_ath} on ${data.low_after_ath_date}.`
+                        `after ATH, ${data.name} fell to ${data.low_after_ath} on ${data.low_after_ath_date}.`
 
-                document.getElementById('api-output').innerText = `direct API output:\n
+                document.getElementById('api-output').innerText = `API response:\n
                         ${JSON.stringify(data, null, 2)}`
             })
             .catch(error => console.error('Error:', error));
