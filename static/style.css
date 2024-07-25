@@ -4,14 +4,6 @@ body{
     color:rgb(255, 255, 255);
 }
 
-.price-item{
-  flex: 1 0 auto;
-  min-width: 10px;
-}
-
-.stats-item{
-  padding-top: 10px;
-}
 
 
 .search-button {
@@ -65,11 +57,6 @@ body{
     text-align: center;
 }
 
-#price{
-  font-style: bold;
-  font-size: 50px;
-}
-
 .api-output {
   display: none;
   padding-top: 5%;
@@ -88,6 +75,19 @@ body{
 
 #data-grid{
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 10px;
+}
+
+.stats-item{
+  padding-top: 10px;
+  width: 100%;
+}
+
+#price{
+  font-style: bold;
+  font-size: 50px;
+  flex: 1 0 auto;
+  min-width: 10px;
+  width: 100%;
 }
